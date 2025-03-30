@@ -11,7 +11,10 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
       rejectUnauthorized: false
     },
     keepAlive: true,
-    connectTimeout: 60000
+    connectTimeout: 60000,
+    options: {
+      family: 4
+    }
   },
   pool: {
     max: 10,
