@@ -1,6 +1,6 @@
 # Frontend Documentation
 
-## Overview
+## Overview Of Project
 
 The frontend of the Inventory Management System is built with React 18 and Vite, providing a modern and responsive user interface. The application uses Tailwind CSS for styling, HeadlessUI and HeroIcons for UI components, and React Hot Toast for notifications.
 
