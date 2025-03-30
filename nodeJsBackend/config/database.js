@@ -1,29 +1,33 @@
 const { Sequelize } = require('sequelize');
+const fs = require('fs');
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-  dialect: 'postgres',
+const config = {
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  protocol: 'postgres',
+  port: parseInt(process.env.DB_PORT, 10),
+  dialect: 'postgres',
+  ssl: true,
   dialectOptions: {
     ssl: {
-      require: true,
-      rejectUnauthorized: false
-    },
-    keepAlive: true,
-    connectTimeout: 60000,
-    options: {
-      family: 4
+      ca: process.env.DB_CA_CERT
     }
-  },
+  }
+};
+
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+  host: config.host,
+  port: config.port,
+  dialect: config.dialect,
+  dialectOptions: config.dialectOptions,
   pool: {
-    max: 10,
+    max: 20,
     min: 0,
-    acquire: 60000,
-    idle: 10000,
-    evict: 1000,
-    handleDisconnects: true
+    acquire: 30000,
+    idle: 10000
   },
+  logging: false,
   retry: {
     match: [
       /SequelizeConnectionError/,
