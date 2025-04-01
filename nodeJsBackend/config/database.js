@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const fs = require('fs');
+
 
 const config = {
   username: process.env.DB_USER,
